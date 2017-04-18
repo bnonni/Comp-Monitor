@@ -7,22 +7,22 @@ var app     = express();
 
 app.get('/scrape', (req, res)=>{
 
-  var url = 'http://www.cashbackmonitor.com/cashback-comparison/?filter-store=Amazon';
+  var url = 'http://www.cashbackmonitor.com/cashback-store/walmart/';
 
     request(url, function(error, response, html){
         if(!error){
             var $ = cheerio.load(html);
 
-            var amazonEbates;
-            var json = { amazonEbates : ""};
+            var walmart;
+            var json = { walmart : ""};
 
 
-            $('td.l.tl').filter(function(){
+            $('span#ra0').filter(function(){
             var data = $(this);
 
-            amazonEbates = data.children().last().text();
+            walmart = data.text();
 
-            json.amazonEbates = amazonEbates;
+            json.walmart = walmart;
             })
 
             // $('div.subtext a').filter(function(){
