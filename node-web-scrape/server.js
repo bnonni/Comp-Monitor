@@ -7,41 +7,40 @@ var app     = express();
 
 app.get('/scrape', (req, res)=>{
 
-  var url = 'http://www.cashbackmonitor.com/my-monitor/';
+  var url = 'http://www.cashbackmonitor.com/My-Monitor/';
 
     request(url, function(error, response, html){
         if(!error){
             var $ = cheerio.load(html);
 
-            var title, release, rating;
-            var json = { title : "", release : "", rating : ""};
+            var Ebates;
+            var json = { Ebates : ""};
 
 
-            $('.cbm.c td').filter(function(){
+            $('.l tl').filter(function(){
             var data = $(this);
 
             title = data.text();
 
-            json.title = title;
-
+            json.Ebates = Ebates;
             })
 
-            $('div.subtext a').filter(function(){
-            var data = $(this);
+            // $('div.subtext a').filter(function(){
+            // var data = $(this);
 
-            release = data.children().first().text();
+            // release = data.children().first().text();
 
-            json.release = release
+            // json.release = release
 
-            });
+            // });
 
-            $('div.ratingValue').filter(function(){
-                var data = $(this);
+            // $('div.ratingValue').filter(function(){
+            //     var data = $(this);
 
-            rating = data.children().first().text();
+            // rating = data.children().first().text();
 
-                json.rating = rating;
-            })
+            //     json.rating = rating;
+            // })
         }
         fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
 
@@ -54,6 +53,6 @@ res.send('Check your console!')
     })
 })
 
-app.listen('8081')
-console.log('Magic happens on port 8081');
+app.listen('8080')
+console.log('Magic happens on port 8080');
 exports = module.exports = app;
