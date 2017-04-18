@@ -7,22 +7,22 @@ var app     = express();
 
 app.get('/scrape', (req, res)=>{
 
-  var url = 'http://www.cashbackmonitor.com/My-Monitor/';
+  var url = 'http://www.cashbackmonitor.com/cashback-comparison/?filter-store=Amazon';
 
     request(url, function(error, response, html){
         if(!error){
             var $ = cheerio.load(html);
 
-            var Ebates;
-            var json = { Ebates : ""};
+            var amazonEbates;
+            var json = { amazonEbates : ""};
 
 
-            $('.l tl').filter(function(){
+            $('td.l.tl').filter(function(){
             var data = $(this);
 
-            title = data.text();
+            amazonEbates = data.children().last().text();
 
-            json.Ebates = Ebates;
+            json.amazonEbates = amazonEbates;
             })
 
             // $('div.subtext a').filter(function(){
