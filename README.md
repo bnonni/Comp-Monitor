@@ -1,2 +1,1 @@
- README.md
- "Competitive monitoring tool for cashbacksites"
+"Competitive monitoring tool for cashbacksites"
